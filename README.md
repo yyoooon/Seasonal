@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 설치한 패키지
 
-## Getting Started
+- create next-app --typescript
+- emotion, @emotion/babel-plugin
+- axios
+- eslint, prettier
 
-First, run the development server:
+</br>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 설정한 부분
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**서버 통신(axios)**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 파일 경로: `src/api/request.ts`
+- axios.create로 커스텀 axios instance생성.
+- Interceptors적용 - 요청/응답 시 공통적으로 처리할 로직을 작성할 수 있도함.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+**스타일**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- cdn으로 reset.css적용.
+- emotion의 GlobalProvider 적용.
+  - `src/styles/GlobalStyle.tsx` 파일에서 전역으로 적용할 css코드 작성하시면 됩니다.
+- emotion의 ThemeProvider 프로바이더 적용.
+  - `src/styles/theme.tsx` 파일에서 스타일 값들을 정의한 다음, 각 컴포넌트 파일에서 전역 값으로 사용하시면 됩니다.
 
-## Learn More
+**상대경로 alias적용**
 
-To learn more about Next.js, take a look at the following resources:
+- 파일 경로: `tsconfig.json`
+- “./src” 를 baseUrl로 alias설정했습니다.
+  ```json
+  {
+    "compilerOptions": {
+  		...
+      "baseUrl": "./src",
+      "paths": {
+        "@/*": ["./*"]
+      }
+    }
+  }
+  ```
+- 사용 예시 - `@/components/Button.tsx`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+</br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+사용하지 않은 부분은 삭제하시고, 다른 기술 스택으로 자유롭게 변경해서 사용하시면 됩니다!!
